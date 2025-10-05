@@ -1,0 +1,88 @@
+.signup-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f0f2f5;
+  font-family: "Poppins", sans-serif;
+}
+
+.signup-box {
+  background: #fff;
+  padding: 2.5rem;
+  border-radius: 10px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 380px;
+  text-align: center;
+}
+
+.signup-box h2 {
+  margin-bottom: 1.5rem;
+  color: #333;
+  font-weight: 600;
+}
+
+.form-control {
+  text-align: left;
+  margin-bottom: 1.2rem;
+}
+
+.form-control label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.form-control input {
+  width: 100%;
+  padding: 0.8rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  outline: none;
+}
+
+.form-control input:focus {
+  border-color: #00798c;
+  box-shadow: 0 0 4px rgba(0, 121, 140, 0.3);
+}
+
+.signup-btn {
+  width: 100%;
+  padding: 0.9rem;
+  background: #00798c;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.signup-btn:hover {
+  background: #006273;
+}
+
+.error {
+  color: #d1495b;
+  font-size: 0.9rem;
+  margin-bottom: 0.8rem;
+}
+
+.redirect-text {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.redirect-link {
+  color: #00798c;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.redirect-link:hover {
+  text-decoration: underline;
+}
