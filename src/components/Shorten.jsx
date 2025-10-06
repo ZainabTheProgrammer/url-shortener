@@ -10,7 +10,12 @@ const Shorten = () => {
   const [loading, setLoading] = useState(false);
   const [copiedIndex, setCopiedIndex] = useState(null);
 
- 
+  
+  const BACKEND_URL =
+    process.env.NODE_ENV === "production"
+      ? "https://url-shortener-backend.onrender.com" 
+      : "http://localhost:5000";
+
   useEffect(() => {
     localStorage.setItem("shortenUrl", JSON.stringify(shortenedUrls));
   }, [shortenedUrls]);
@@ -25,7 +30,7 @@ const Shorten = () => {
 
     try {
       setLoading(true);
-      const response = await fetch("http://localhost:5000/api/shortenUrl", {
+      const response = await fetch(`${BACKEND_URL}/api/shortenUrl`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -62,7 +67,6 @@ const Shorten = () => {
     setTimeout(() => setCopiedIndex(null), 2000);
   };
 
- 
   const handleClearAll = () => {
     setShortenedUrls([]);
     localStorage.removeItem("shortenUrl");
@@ -94,7 +98,6 @@ const Shorten = () => {
           </form>
         </div>
 
-     
         {shortenedUrls.length > 0 && (
           <div className="shorten__cards">
             {shortenedUrls.map((item, index) => (
@@ -124,7 +127,6 @@ const Shorten = () => {
               </div>
             ))}
 
-         
             <button onClick={handleClearAll} className="btn clear-btn">
               Clear All
             </button>

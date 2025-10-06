@@ -420,7 +420,7 @@ input.error-input::placeholder {
   color: var(--clr-primary-400);
 }
 
-/* Media query - Tablet and up */
+
 @media (min-width: 768px) {
   .container {
     width: 768px;
@@ -431,7 +431,7 @@ input.error-input::placeholder {
     padding-block: 2rem;
   }
 
-  /* mobile nav */
+
   .mobile-nav.show {
     display: none;
   }
@@ -440,7 +440,6 @@ input.error-input::placeholder {
     display: none;
   }
 
-  /* Desktop nav */
   .hide {
     display: block;
   }
@@ -623,13 +622,13 @@ input.error-input::placeholder {
   }
 }
 
-/* Media query - Desktop and up */
+
 @media (min-width: 1020px) {
   .container {
     width: 1100px;
   }
 
-  /* Footer section */
+ 
   .footer {
     text-align: left;
   }
@@ -648,18 +647,18 @@ input.error-input::placeholder {
     align-items: flex-start;
   }
 }
-/* === Fix long URLs breaking layout === */
+
 .shorten .shorten__card .actual-link span {
   display: block;
   width: 100%;
-  white-space: normal;           /* allow wrapping */
-  word-wrap: break-word;         /* break long URLs */
-  overflow-wrap: break-word;     /* modern property */
-  word-break: break-all;         /* as a backup */
+  white-space: normal;           
+  word-wrap: break-word;         
+  overflow-wrap: break-word;     
+  word-break: break-all;         
   line-height: 1.4;
 }
 
-/* Optional: make it look tidy even for very long URLs */
+
 .shorten .shorten__card .actual-link {
   overflow: hidden;
   text-overflow: ellipsis;
