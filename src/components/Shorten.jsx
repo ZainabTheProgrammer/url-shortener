@@ -10,12 +10,11 @@ const Shorten = () => {
   const [loading, setLoading] = useState(false);
   const [copiedIndex, setCopiedIndex] = useState(null);
 
-
+  
   const BACKEND_URL =
     process.env.NODE_ENV === "production"
-      ? "https://your-vercel-backend.vercel.app/api"
+      ? "" 
       : "http://localhost:5000";
-
 
   useEffect(() => {
     localStorage.setItem("shortenUrl", JSON.stringify(shortenedUrls));
@@ -31,14 +30,15 @@ const Shorten = () => {
 
     try {
       setLoading(true);
-      const response = await fetch(`${BACKEND_URL}/shortenUrl`, {
+
+      
+      const response = await fetch(`${BACKEND_URL}/api/shortenUrl`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ url }),
       });
-
 
       const data = await response.json();
 
