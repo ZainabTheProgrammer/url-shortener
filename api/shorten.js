@@ -6,11 +6,12 @@ export default async function handler(req, res) {
   }
 
   try {
-    let body = "";
-    for await (const chunk of req) body += chunk;
-    const { url } = JSON.parse(body);
+    // ✅ Vercel already parses JSON request body automatically
+    const { url } = req.body;
 
-    if (!url) return res.status(400).json({ error: "URL is required" });
+    if (!url) {
+      return res.status(400).json({ error: "URL is required" });
+    }
 
     const response = await axios.post(
       "https://cleanuri.com/api/v1/shorten",
@@ -18,9 +19,9 @@ export default async function handler(req, res) {
       { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
     );
 
-    res.status(200).json({ shortUrl: response.data.result_url });
-  } catch (err) {
-    console.error(err.response?.data || err.message);
-    res.status(500).json({ error: "Failed to shorten URL" });
+    return res.status(200).json({ shortUrl: response.data.result_url });
+  } catch (error) {
+    console.error(error.response?.data || error.message);
+    return res.status(500).json({ error: "Failed to shorten URL" });
   }
 }
