@@ -1,13 +1,15 @@
 import axios from "axios";
 
 export default async function handler(req, res) {
-  if (req.method !== "POST") {
-    return res.status(405).json({ error: "Method not allowed" });
-  }
-
   try {
-    // ✅ Vercel already parses JSON request body automatically
-    const { url } = req.body;
+    if (req.method !== "POST") {
+      return res.status(405).json({ error: "Method not allowed" });
+    }
+
+    // Parse body safely for Vercel serverless
+    let body = "";
+    for await (const chunk of req) body += chunk;
+    const { url } = JSON.parse(body || "{}");
 
     if (!url) {
       return res.status(400).json({ error: "URL is required" });
@@ -21,7 +23,7 @@ export default async function handler(req, res) {
 
     return res.status(200).json({ shortUrl: response.data.result_url });
   } catch (error) {
-    console.error(error.response?.data || error.message);
-    return res.status(500).json({ error: "Failed to shorten URL" });
+    console.error("Server error:", error);
+    return res.status(500).json({ error: "Internal server error" });
   }
 }
