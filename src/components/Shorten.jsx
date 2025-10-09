@@ -10,12 +10,6 @@ const Shorten = () => {
   const [loading, setLoading] = useState(false);
   const [copiedIndex, setCopiedIndex] = useState(null);
 
-  
-  const BACKEND_URL =
-    process.env.NODE_ENV === "production"
-      ? "" 
-      : "http://localhost:5000";
-
   useEffect(() => {
     localStorage.setItem("shortenUrl", JSON.stringify(shortenedUrls));
   }, [shortenedUrls]);
@@ -31,12 +25,9 @@ const Shorten = () => {
     try {
       setLoading(true);
 
-      
-      const response = await fetch(`${BACKEND_URL}/api/shortenUrl`, {
+      const response = await fetch("/api/shorten", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ url }),
       });
 
@@ -45,10 +36,7 @@ const Shorten = () => {
       if (response.ok) {
         setShortenedUrls([
           ...shortenedUrls,
-          {
-            originalUrl: url,
-            shortUrl: data.shortUrl,
-          },
+          { originalUrl: url, shortUrl: data.shortUrl },
         ]);
         setUrl("");
         setErrorMessage("");
@@ -89,12 +77,7 @@ const Shorten = () => {
               />
               {errorMessage && <p className="error-text">{errorMessage}</p>}
             </div>
-            <button
-              type="submit"
-              className="btn"
-              data-type="wide"
-              disabled={loading}
-            >
+            <button type="submit" className="btn" disabled={loading}>
               {loading ? "Loading..." : "Shorten It!"}
             </button>
           </form>
@@ -120,7 +103,6 @@ const Shorten = () => {
                   </a>
                   <button
                     className={`btn ${copiedIndex === index ? "copied" : ""}`}
-                    data-type="wide"
                     onClick={() => handleCopy(item.shortUrl, index)}
                   >
                     {copiedIndex === index ? "Copied" : "Copy"}
