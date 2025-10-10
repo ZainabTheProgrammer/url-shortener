@@ -24,13 +24,16 @@ const Shorten = () => {
 
     try {
       setLoading(true);
-      const response = await fetch("https://url-shortener-backend.onrender.com/api/shortenUrl", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ url }),
-      });
+      const response = await fetch(
+        "https://url-shortener-2-5nc2.onrender.com/api/shortenUrl",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ url }),
+        }
+      );
 
       const data = await response.json();
 
