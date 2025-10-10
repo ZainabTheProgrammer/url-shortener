@@ -10,7 +10,6 @@ const Shorten = () => {
   const [loading, setLoading] = useState(false);
   const [copiedIndex, setCopiedIndex] = useState(null);
 
-
   useEffect(() => {
     localStorage.setItem("shortenUrl", JSON.stringify(shortenedUrls));
   }, [shortenedUrls]);
@@ -25,7 +24,7 @@ const Shorten = () => {
 
     try {
       setLoading(true);
-      const response = await fetch("http://localhost:5000/api/shortenUrl", {
+      const response = await fetch("https://url-shortener-backend.onrender.com/api/shortenUrl", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -49,7 +48,7 @@ const Shorten = () => {
         setErrorMessage(data.error || "Something went wrong");
       }
     } catch (error) {
-      setErrorMessage("Failed to fetch. Is the server running?");
+      setErrorMessage("Failed to connect to the backend. Please try again.");
       console.error(error);
     } finally {
       setLoading(false);
@@ -62,7 +61,6 @@ const Shorten = () => {
     setTimeout(() => setCopiedIndex(null), 2000);
   };
 
- 
   const handleClearAll = () => {
     setShortenedUrls([]);
     localStorage.removeItem("shortenUrl");
@@ -123,7 +121,6 @@ const Shorten = () => {
               </div>
             ))}
 
-            
             <button onClick={handleClearAll} className="btn clear-btn">
               Clear All
             </button>
