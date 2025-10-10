@@ -1,21 +1,13 @@
 const express = require("express");
 const axios = require("axios");
 const cors = require("cors");
-const bodyParser = require("body-parser");
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 10000;
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cors({
-  origin: "https://zainabtheprogrammer.github.io",
-  methods: ["GET", "POST", "OPTIONS"],
-  allowedHeaders: ["Content-Type"]
-}));
-
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-
-app.options("*", cors({
   origin: "https://zainabtheprogrammer.github.io",
   methods: ["GET", "POST", "OPTIONS"],
   allowedHeaders: ["Content-Type"]
@@ -42,6 +34,10 @@ app.post("/api/shortenUrl", async (req, res) => {
   }
 });
 
-app.listen(PORT, "0.0.0.0", () => {
+const server = app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+
+server.keepAliveTimeout = 120000; 
+server.headersTimeout = 120000;
