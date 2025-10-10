@@ -8,23 +8,18 @@ const PORT = process.env.PORT || 5000;
 
 app.use(
   cors({
-    origin: [
-      "http://localhost:3000", 
-      "https://zainabtheprogrammer.github.io" 
-    ],
+    origin: ["http://localhost:3000", "https://zainabtheprogrammer.github.io"],
     methods: ["GET", "POST"],
-    allowedHeaders: ["Content-Type"],
+    allowedHeaders: ["Content-Type"]
   })
 );
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-
 app.get("/", (req, res) => {
   res.send("Backend is running ✅");
 });
-
 
 app.post("/api/shortenUrl", async (req, res) => {
   const { url } = req.body;
@@ -38,9 +33,7 @@ app.post("/api/shortenUrl", async (req, res) => {
       "https://cleanuri.com/api/v1/shorten",
       new URLSearchParams({ url }).toString(),
       {
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
+        headers: { "Content-Type": "application/x-www-form-urlencoded" }
       }
     );
 
@@ -51,6 +44,6 @@ app.post("/api/shortenUrl", async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`Server running on port ${PORT}`); 
 });
