@@ -10,6 +10,7 @@ const Shorten = () => {
   const [loading, setLoading] = useState(false);
   const [copiedIndex, setCopiedIndex] = useState(null);
 
+
   useEffect(() => {
     localStorage.setItem("shortenUrl", JSON.stringify(shortenedUrls));
   }, [shortenedUrls]);
@@ -24,10 +25,11 @@ const Shorten = () => {
 
     try {
       setLoading(true);
-
-      const response = await fetch("/api/shorten", {
+      const response = await fetch("http://localhost:5000/api/shortenUrl", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({ url }),
       });
 
@@ -36,7 +38,10 @@ const Shorten = () => {
       if (response.ok) {
         setShortenedUrls([
           ...shortenedUrls,
-          { originalUrl: url, shortUrl: data.shortUrl },
+          {
+            originalUrl: url,
+            shortUrl: data.shortUrl,
+          },
         ]);
         setUrl("");
         setErrorMessage("");
@@ -57,6 +62,7 @@ const Shorten = () => {
     setTimeout(() => setCopiedIndex(null), 2000);
   };
 
+ 
   const handleClearAll = () => {
     setShortenedUrls([]);
     localStorage.removeItem("shortenUrl");
@@ -77,7 +83,12 @@ const Shorten = () => {
               />
               {errorMessage && <p className="error-text">{errorMessage}</p>}
             </div>
-            <button type="submit" className="btn" disabled={loading}>
+            <button
+              type="submit"
+              className="btn"
+              data-type="wide"
+              disabled={loading}
+            >
               {loading ? "Loading..." : "Shorten It!"}
             </button>
           </form>
@@ -103,6 +114,7 @@ const Shorten = () => {
                   </a>
                   <button
                     className={`btn ${copiedIndex === index ? "copied" : ""}`}
+                    data-type="wide"
                     onClick={() => handleCopy(item.shortUrl, index)}
                   >
                     {copiedIndex === index ? "Copied" : "Copy"}
@@ -111,6 +123,7 @@ const Shorten = () => {
               </div>
             ))}
 
+            
             <button onClick={handleClearAll} className="btn clear-btn">
               Clear All
             </button>
